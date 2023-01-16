@@ -1,3 +1,4 @@
+import sys
 from tqdm import tqdm
 # from collections import Counter
 from create_vertex.vertex import create_vertex
@@ -5,14 +6,18 @@ from brute_force.brute_force import bruteforce_algorithm
 from simulated_annealing.algorithm import SimulatedAnnealing
 from global_function import plot_solution, verification
 
+original_stdout = sys.stdout
 
-def main(nb_nodes, nb_edges):
+def main(nb_nodes, nb_edges, output):
     # Create the vertex
     vertex = create_vertex(nb_nodes, nb_edges)
     # Brute Force Algorithm
     bf_solutions = bruteforce_algorithm(vertex)
-    plot_solution(bf_solutions[0], vertex, 'Brute Force Solution')
-    print('Number of nodes in the optimal solution: ', len(bf_solutions[0]))
+    if output == True:
+        plot_solution(bf_solutions[0], vertex, 'Brute Force Solution', "output/Brute_force_solution")
+    else:
+        plot_solution(bf_solutions[0], vertex, 'Brute Force Solution', None)
+    print('\nNumber of nodes in the optimal solution: ', len(bf_solutions[0]))
     print('Number of optimal solutions: ', len(bf_solutions[1]))
     # Simulated Annealing
     solutions = []
@@ -51,5 +56,5 @@ def main(nb_nodes, nb_edges):
 
 if __name__ == '__main__':
     print('start')
-    main(20, 40)
+    main(20, 40, True)
     print('end')

@@ -13,7 +13,7 @@ def verification(solution, vertex):
 
 
 # Plot a solution
-def plot_solution(solution, vertex, title):
+def plot_solution(solution, vertex, title, file_name):
     pos = nx.spring_layout(vertex, seed=1)
     edges_in = vertex.edges(solution)
     nx.draw_networkx(vertex, pos, node_color="#f17b3e")
@@ -21,4 +21,6 @@ def plot_solution(solution, vertex, title):
     nx.draw_networkx_edges(vertex, pos, edgelist=edges_in, width=4, edge_color="#46a4ea")
     plt.title(title)
     plt.legend(markerscale=0.6)
+    if file_name:
+        plt.savefig(str(file_name) + ".png", format = "PNG")
     plt.show()
