@@ -24,20 +24,10 @@ def main(nb_nodes, nb_edges, output):
     # distribution = []
     best_solution = (0,)*nb_edges
     no_change = 0
-    # count = 0
-    # for _ in tqdm(iterable=range(100), desc='Simulated Annealing'):
-    #     solution = SimulatedAnnealing(vertex, bf_solution=len(bf_solutions[0]), max_move=1000, max_fail=10000).run()
-    #     if verification(solution, vertex):
-    #         count += 1
-    #     solutions.append(len(solution))
-    #     # plot_solution(solution, vertex, 'Simulated Annealing')
-    # for i in set(solutions):
-    #     distribution.append([i, Counter(solutions).get(i)])
-    # print(distribution)
-    # print('nb_solution_true', count)
+
     pbar = tqdm(total=10)
     while no_change != 10:
-        solution = SimulatedAnnealing(vertex, bf_solution=len(bf_solutions[0]), max_move=1000, max_fail=10000).run()
+        solution, history = SimulatedAnnealing(vertex, bf_solution=len(bf_solutions[0]), max_move=1000, max_fail=10000).run()
         if verification(solution, vertex) and len(solution) < len(best_solution):
             solutions = [solution]
             best_solution = solution
@@ -48,6 +38,7 @@ def main(nb_nodes, nb_edges, output):
             solutions.append(solution)
             no_change += 1
             pbar.update(1)
+    print(history)
     pbar.close()
     solutions = list(set(solutions))
     print(len(best_solution))

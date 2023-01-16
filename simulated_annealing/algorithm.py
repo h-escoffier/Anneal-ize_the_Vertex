@@ -12,6 +12,7 @@ class SimulatedAnnealing:
         self.solution = tuple(self.vertex.number_of_nodes()*[1])
         self.best_solution = ()
         self.bf_solution = bf_solution
+        self.history = []
 
     # Determines S0
     def f_s0(self):
@@ -83,6 +84,7 @@ class SimulatedAnnealing:
         self.best_solution = self.solution
         all_time_best_energy = optimise_energy(self.vertex, self.solution)
         i = 0
+        count = 0
         # Algorithm
         while self.max_fail != failure and t > 0:
             # if failure <= (self.max_fail/2):
@@ -120,13 +122,15 @@ class SimulatedAnnealing:
             else:
                 failure += 1
             t = self.temp_update(t, i=i)
+            self.history.append([count, t, optimise_energy(self.vertex, self.solution), all_time_best_energy])
+            count += 1
         final_solution = conversion(self.best_solution)
         return final_solution
 
     def run(self):
         self.f_s0()
         self.algorithm()
-        return conversion(self.best_solution)
+        return conversion(self.best_solution), self.history
 
 
 def conversion(b_solution):
