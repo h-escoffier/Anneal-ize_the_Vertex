@@ -45,9 +45,12 @@ def main(nb_nodes, nb_edges, output_boolean):
 
     ### Plot best_solution here
     if output_boolean == True:
-
+        plot_solution(best_solution,vertex, '(One of the) Best(s) solution(s) provided by annealer',
+                      "output/Simulated_annealing_solution")
         with open("output/history.txt", 'w+') as h:
             h.write(str(history))
+    else:
+        plot_solution(best_solution, vertex, '(One of the) Best(s) solution(s) provided by annealer', None)
     plot_history(history, output_boolean)
     pbar.close()
     solutions = list(set(solutions))
