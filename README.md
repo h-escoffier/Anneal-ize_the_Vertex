@@ -1,6 +1,7 @@
 # AtV : Anneal-ize the Vertex
 ### Simulated Annealing applied to the Minimum Vertex Cover Problem
-Authors: Hugues Esc_ - OGrondin
+
+by Hugues Esc_ & OGrondin
 
 ## Introduction
 Anneal-ize the Vertex is a version of an efficient simulated annealing algorithm applied to the Minimum Vertex Cover Problem. 
