@@ -28,7 +28,7 @@ class SimulatedAnnealing:
         if self.temp == 'arithmetic':
             t -= self.alpha
         if self.temp == 'logarithmic':
-            t = self.t0/(1 + np.log10(1 + i))  # TODO: CHERCHER LA BONNE VERSION
+            t = self.t0/(1 + np.log10(1 + i))  # ?
         return t
 
     # Change the solution by randomly adding or removing a node
@@ -45,7 +45,8 @@ class SimulatedAnnealing:
         v_i = (new_solution[changing_position], changing_position)   # v_i equal to 1 or 0
         return new_solution, v_i
 
-    # Change the solution by removing one node from the solution and integrating another that is not part of the solution
+    # Change the solution by removing one node from the solution and integrating another that is not part of the
+    # solution
     def swap(self, solution):
         t_solution = conversion(solution)
         non_solution = tuple([i for i in list(range(self.vertex.number_of_nodes())) if i not in list(t_solution)])
@@ -60,7 +61,8 @@ class SimulatedAnnealing:
         new_solution = tuple(l_solution)
         return new_solution
 
-    # The energy depends on whether the solution is valid, the number of nodes covered and the number of nodes in the solution
+    # The energy depends on whether the solution is valid, the number of nodes covered and the number of nodes in the
+    # solution
     @staticmethod
     def energy(b_solution):
         solution = conversion(b_solution)
@@ -70,7 +72,8 @@ class SimulatedAnnealing:
         energy = 1000/nodes_nb
         return energy
 
-    # Calculates the probability of accepting a less optimal answer
+    # Calculates the probability of accepting a less optimal answer. This function is not use anymore in the 'Xinshun'
+    # method
     @staticmethod
     def probability(delta, t):
         probability = np.exp(delta/t)
@@ -87,27 +90,8 @@ class SimulatedAnnealing:
         count = 0
         # Algorithm
         while self.max_fail != failure and t > 0:
-            # if failure <= (self.max_fail/2):
-            #     s_ = self.switch(self.solution)
-            # else:
-            #     s_ = self.swap(self.solution)
-            #     failure = 0
-            # delta = self.energy(s_) - self.energy(self.solution)
-            # if verification(conversion(s_), self.vertex) and self.energy(s_) >= self.energy(self.solution):
-            #     self.solution = s_
-            #     if self.energy(s_) >= energy_best_solution:
-            #         self.best_solution = s_
-            #         energy_best_solution = self.energy(s_)
-            #     failure = 0
-            # elif verification(conversion(s_), self.vertex) and np.random.uniform() < self.probability(delta, t):
-            #     self.solution = s_
-            #     failure = 0
-            # else:
-            #     failure += 1
             list_s_vi = self.switch(self.solution)
             s_, v_i = list_s_vi
-            # if verification(conversion(s_), self.vertex) and len(conversion(s_)) == self.bf_solution:
-            #     print(s_)
             delta = optimise_energy(self.vertex, s_) - optimise_energy(self.vertex, self.solution)
             if delta < 0:
                 self.solution = s_
@@ -115,7 +99,6 @@ class SimulatedAnnealing:
                     self.best_solution = s_
                     all_time_best_energy = optimise_energy(self.vertex, s_)
                 failure = 0
-            # elif np.random.uniform() < self.probability(delta, t):
             elif np.random.uniform() < optimise_probability(self.vertex, v_i, delta, t):
                 self.solution = s_
                 failure = 0
@@ -166,11 +149,11 @@ def optimise_probability(vertex, v, delta, t):
     return probability
 
 
-# Explanation of the energy fonction is available in the publication
+# Explanation of the energy function is available in the publication
 def optimise_energy(vertex, b_solution, a=0.99, b=1):
     solution = conversion(b_solution)
-    f1 = len(solution)  # OK
-    f2 = -1*len(set(vertex.edges(solution)))  # OK
-    f3 = len(set(vertex.edges))  # OK
+    f1 = len(solution)
+    f2 = -1*len(set(vertex.edges(solution)))
+    f3 = len(set(vertex.edges))
     f = a*f1 + b*f2 + b*f3
     return f

@@ -1,10 +1,11 @@
 import networkx as nx
 from tqdm import tqdm
 
-# TODO: TROUVER DES BENCHMARK GRAPH POUR LE BON PROBLEME ET RETRAVAILLER LE SCRIPT
-
 
 def file_to_graph(file):
+    """
+    This function can be used to plot a graph from a file
+    """
     edges_list = []
     nodes_list = []
     with open(file, 'r') as benchmark_file:

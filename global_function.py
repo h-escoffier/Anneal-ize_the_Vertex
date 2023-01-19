@@ -1,11 +1,13 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-# TODO: CHANGER LES COULEURS
+# TODO: change the colours of the plot
 
 
-# Checks if a solution is valid
 def verification(solution, vertex):
+    """
+    Check if a solution is valid
+    """
     if len(vertex.edges(solution)) == len(vertex.edges):
         return True
     else:
@@ -22,5 +24,5 @@ def plot_solution(solution, vertex, title, file_name):
     plt.title(title)
     plt.legend(markerscale=0.6)
     if file_name:
-        plt.savefig(str(file_name) + ".png", format = "PNG")
+        plt.savefig(str(file_name) + ".png", format="PNG")
     plt.show()

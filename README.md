@@ -1,8 +1,6 @@
-# Anneal-ize the Vertex (AtV)
-### Metaheuristics project: Simulated Annealing applied to the Minimum Vertex Cover Problem
-Authors: HE - NG
-
-M2 GENIOMHE Algorithmics Project
+# AtV : Anneal-ize the Vertex
+### Simulated Annealing applied to the Minimum Vertex Cover Problem
+Authors: Hugues Esc_ - OGrondin
 
 ## Introduction
 Anneal-ize the Vertex is a version of an efficient simulated annealing algorithm applied to the Minimum Vertex Cover Problem. 
@@ -18,7 +16,7 @@ pip install -r requirements.txt
 ## Running AtV
 Running AtV under its basic parameters:
 ```
-./run.py
+./run.py 
 ```
 
 ## References
